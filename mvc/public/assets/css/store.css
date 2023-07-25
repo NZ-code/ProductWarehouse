@@ -1,0 +1,16 @@
+.products-section{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap: 50px; 
+}
+.product-container{
+    border: 3px solid black;
+    width: 250px;
+    padding: 12px;
+}
+.product-properties{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,2 @@
+IndexIgnore /sql_scripts
+IndexIgnore /mvc/app*
