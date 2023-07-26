@@ -9,11 +9,11 @@ import AddProductHeaderComponent from '../components/AddProductHeaderComponent.v
             <form id="product-form" method="post" action="">
                 <div class="options-container stable-options">
                     <label>SKU</label><br>
-                    <input type="text" id="sku" name="sku"><br>
+                    <input type="text" id="sku" name="sku" required><br>
                     <label>NAME</label><br>
-                    <input type="text" id="name" name="name"><br>
+                    <input type="text" id="name" name="name" required><br>
                     <label>PRICE($)</label><br>
-                    <input type="number" id="price" name="price"><br>
+                    <input type="number" id="price" name="price" required><br>
                 </div>
 
                 <div class="options-container changing-options">

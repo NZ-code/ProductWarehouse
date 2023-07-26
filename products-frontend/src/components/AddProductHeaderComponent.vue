@@ -1,14 +1,29 @@
+<script>
+    export default{
+        data(){
+            
+        },
+        methods: {
+            onSaveClick() {
+                this.$router.push('/');
+            },
+            onCancelClick() {
+                this.$router.push('/');
+            }
+        }
+    }
+</script>
 <template>
     <header>
         <nav class="header-content">
             <p class="header-title">Add Product:</p>
             <div class="buttons-section">
-                <div class="nav-button black-btn">
+                <button class="nav-button black-btn" @click="onSaveClick">
                     <p>Save</p>
-                </div>
-                <div class="nav-button white-btn">
+                </button>
+                <button class="nav-button white-btn" @click="onCancelClick">
                     <p>Cancel</p>
-                </div>
+                </button>
             </div>
         </nav>
     </header>
