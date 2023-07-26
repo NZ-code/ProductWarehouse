@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../mvc/public/assets/css/store.css">
-    <link rel="stylesheet" href="../../../mvc/public/assets/css/main.css">
+    <link rel="stylesheet" href="../../mvc/public/assets/css/store.css">
+    <link rel="stylesheet" href="../../mvc/public/assets/css/main.css">
     <title>Store</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
             <div class="button" id="delete-product-btn">MASS DELETE</div>
         </div>
         <hr>
-        
+         
         <div class="products-section">
             <?php
                 foreach ($products as $product) {
@@ -24,7 +24,7 @@
                 }
             ?>
         </div>
-        <script src="../../../mvc/public/assets/js/store.js"></script>
+        <script src="../../mvc/public/assets/js/store.js"></script>
     </div>
 </body>
 </html>

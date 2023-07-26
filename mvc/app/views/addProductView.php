@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../mvc/public/assets/css/store.css">
-    <link rel="stylesheet" href="../../../mvc/public/assets/css/main.css">
+    <link rel="stylesheet" href="../../mvc/public/assets/css/store.css">
+    <link rel="stylesheet" href="../../mvc/public/assets/css/main.css">
     <title>Store</title>
 </head>
 <body>
@@ -50,7 +50,7 @@
             </form>
         </div>
     </div>
-    <script src="../../../mvc/public/assets/js/add_product.js">
+    <script src="../../mvc/public/assets/js/add_product.js">
 
     </script>
 </body>
