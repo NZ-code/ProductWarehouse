@@ -13,8 +13,8 @@ class Database{
     }
     private function connect(){
         $servername = "localhost";
-        $username = "root";
-        $password = "";
+        $username = "nick";
+        $password = "123";
         $databaseName = "shop";
         // Create connection
         $conn = new mysqli($servername, $username, $password, $databaseName);
@@ -87,7 +87,7 @@ class Database{
     private function getProductSpecificProperties($product){
         $properties = [];
         $productId = $product->getId();
-        $getProductPropertiesQuery = 'SELECT property.name, product_property.value FROM PRODUCT_PROPERTY JOIN PROPERTY on PRODUCT_PROPERTY.property_id = property.id where product_id = ?;';
+        $getProductPropertiesQuery = 'SELECT PROPERTY.name, PRODUCT_PROPERTY.value FROM PRODUCT_PROPERTY JOIN PROPERTY on PRODUCT_PROPERTY.property_id = PROPERTY.id where product_id = ?;';
         $propertiesRows = $this->executeQuery($getProductPropertiesQuery, [$productId]);
        
         if ($propertiesRows->num_rows > 0) {

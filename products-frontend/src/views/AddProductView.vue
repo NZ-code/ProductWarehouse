@@ -108,7 +108,7 @@ export default {
             <div class="error-messages" v-if="invalidFormWasSubmitted">
                 <p>Please, submit required data</p>
             </div>
-            <form id="product-form">
+            <form id="product_form">
                 <div class="options-container stable-options">
                     <label>SKU</label><br>
                     <input v-model="productForm.sku" type="text" id="sku" name="sku" required><br>
@@ -129,7 +129,7 @@ export default {
 
                 <div class="options-container changing-options">
                     <label>Type Switcher:</label>
-                    <select name="type" id="product-type" v-model="productForm.type">
+                    <select name="type" id="productType" v-model="productForm.type">
                         <option value="dvd">DVD</option>
                         <option value="furniture">Furniture</option>
                         <option value="book">Book</option>
@@ -210,7 +210,7 @@ export default {
     .error-messages{
         color:red;
     }
-    #product-form{
+    #product_form{
         display: flex;
         gap: 40px;
     }

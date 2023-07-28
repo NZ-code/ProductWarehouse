@@ -28,7 +28,7 @@ class StoreController extends Controller
         
     }
     private function handleCors() {
-        $allowedOrigins = 'http://localhost:5173';
+        $allowedOrigins = 'http://zenevichmikita.pl:81';
         $allowedMethods = 'GET, POST, OPTIONS, PATCH';
         $allowedHeaders = 'Content-Type, Authorization';
         $maxAge = 3600;
