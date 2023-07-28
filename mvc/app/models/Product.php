@@ -1,6 +1,6 @@
 <?php
 
-abstract class Product{
+abstract class Product implements JsonSerializable{
     public function __construct($name, $price, $sku) {
         $this->name= $name;
         $this->price = $price;
@@ -10,11 +10,11 @@ abstract class Product{
     private $name;
     private $price;
     private $sku;
-    private static $propertiesNames = ['name', 'price', 'sku'];
+    private static $propertiesNames = ['name', 'price', 'sku', 'type'];
     abstract public function getType();
     abstract public function getSpecificProperties();
     abstract public function setSpecificProperties($properties);
-
+    abstract public function jsonSerialize();
     public static function getPropertiesNames()
     {
         return self::$propertiesNames;
@@ -34,5 +34,16 @@ abstract class Product{
     public function setId($id){
         $this->id = $id;
     }
+    public function getBasicJsonDictionary(){
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'type' => $this->getType(),
+            'sku' => $this->getSku(),
+            'price' => $this->getPrice()
+        ];
+    }
+
+
 
 }

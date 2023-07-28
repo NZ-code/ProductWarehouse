@@ -1,14 +1,36 @@
-<script setup>
-import ProductComponent from '../components/ProductComponent.vue';
-import HomeHeaderComponent from '../components/HomeHeaderComponent.vue';
+<script>
+import ProductsComponent from '../components/ProductsComponent.vue';
+
+export default{
+    components: {
+      ProductsComponent,
+    },
+    methods: {
+      onAddClick() {
+        this.$router.push('/addproduct')
+      },
+      onMassDeleteClick() {
+        this.$refs.productsComponentRef.handleMassDelete();
+      }
+    }
+  }
+
 </script>
 
 <template>
-  <HomeHeaderComponent></HomeHeaderComponent>
+    <header>
+        <nav class="header-content">
+            <p class="header-title">Product List:</p>
+            <div class="buttons-section">
+                <button class="nav-button black-btn" id="add-product-btn" @click="onAddClick">ADD</button>
+                <button class="nav-button white-btn" id="delete-product-btn" @click="onMassDeleteClick">MASS DELETE</button>
+            </div>
+        </nav>
+    </header>
   <main>
     <div class="page-content">        
         <div class="products-section">
-            <ProductComponent></ProductComponent>
+            <ProductsComponent ref="productsComponentRef"></ProductsComponent>
         </div>
         
     </div>

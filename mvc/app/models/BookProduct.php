@@ -21,7 +21,11 @@ class BookProduct extends Product{
     }
     public function setSpecificProperties($properties){
         $this->weight = $properties['weight'];
-    
+    }
+    public function jsonSerialize(){
+        $baseDictionary = parent::getBasicJsonDictionary();
+        $specificDictionary = $this->getSpecificProperties();
+        return array_merge($baseDictionary, ["properties"=> $specificDictionary]);
     }
 }
 

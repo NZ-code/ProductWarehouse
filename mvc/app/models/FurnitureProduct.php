@@ -29,5 +29,11 @@ class FurnitureProduct extends Product{
         $this->width = $properties['width'];
         $this->length = $properties['length'];
     }
+
+    public function jsonSerialize(){
+        $baseDictionary = parent::getBasicJsonDictionary();
+        $specificDictionary = $this->getSpecificProperties();
+        return array_merge($baseDictionary, ["properties"=> $specificDictionary]);
+    }
 }
 

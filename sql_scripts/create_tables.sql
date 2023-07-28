@@ -6,7 +6,8 @@ CREATE TABLE PRODUCT(
     name VARCHAR(100) NOT NULL,
     sku VARCHAR(12) NOT NULL,
     type VARCHAR(50) NOT NULL,
-    price DOUBLE
+    price DOUBLE,
+    UNIQUE(sku)
 );
 
 CREATE TABLE PROPERTY(

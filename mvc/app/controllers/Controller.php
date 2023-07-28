@@ -6,6 +6,5 @@ class Controller{
     {   
         extract($data);
         require_once '../app/views/' . $view . '.php';
-        
     }
 }

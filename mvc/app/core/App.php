@@ -45,11 +45,9 @@ class App
     }
     private function getControllersMap(){
         require_once '../app/controllers/StoreController.php';
-        require_once '../app/controllers/AddProductController.php';
 
         $controllersMap = array(
-            "" => new StoreController(), 
-            "addproduct" => new AddProductController()
+            "" => new StoreController()
         );
         return $controllersMap;
     }
