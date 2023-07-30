@@ -13,6 +13,10 @@
         }
         ,
         methods: {
+            formatPrice(value) {
+                let val = (value/1).toFixed(2)
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+            },
             getProductToDelete(){
                 const productsToDelete = this.products.filter(product => product.toDelete);
                 return productsToDelete;
@@ -47,13 +51,14 @@
     }
 </script>
 <template>
+<div class="products-section">
     <div class="product-container" v-for="product in products" @click="onProductClick(product)" >
         <input type="checkbox" class="delete-checkbox" v-model="product.toDelete">
         <input type="hidden" class="product-id-input" :value="product.id">
         <div class="product-properties">
             <div id="product-name"><p>{{ product.name }}</p></div>
             <div id="product-sku"><p>{{ product.sku }}</p></div>
-            <div id = "product-price"><p>{{ product.price }} $</p></div>
+            <div id = "product-price"><p>{{ formatPrice(product.price) }} $</p></div>
             <div class="specific-properties">
                 <div v-if="product.type =='furniture'">
                     Dimesions:{{product.properties['height']}}x{{product.properties['width']}}x{{product.properties['length']}}
@@ -63,11 +68,20 @@
                 </div>
             </div>
         </div>
-
     </div>
+</div>
+
 </template>
 <style scoped>
-  
+    .products-section{
+        margin-top: 60px;
+        margin-bottom: 330px;
+        margin-left: 140px;
+        margin-right: 140px;
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-gap: 50px; 
+    }
     .product-container{
         border-radius: 12px;
         border: 3px solid #EDEDED;
@@ -77,6 +91,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        overflow: auto;
     }
     .product-properties{
         display: flex;
@@ -84,6 +99,7 @@
         justify-content: center;
         align-items: center;
     }
+    
     #product-name{
         font-size: 20px;
         font-weight: 600;
