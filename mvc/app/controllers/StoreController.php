@@ -2,6 +2,7 @@
 require_once '../app/repositories/ProductRepository.php';
 require_once '../app/models/Product.php';
 require_once '../app/models/ProductFactory.php';
+require_once '../app/utils/Constants.php';
 class StoreController extends Controller
 {
     private $repository;
@@ -28,7 +29,7 @@ class StoreController extends Controller
         
     }
     private function handleCors() {
-        $allowedOrigins = 'http://zenevichmikita.pl:81';
+        $allowedOrigins = CLIENT_ORIGIN;
         $allowedMethods = 'GET, POST, OPTIONS, PATCH';
         $allowedHeaders = 'Content-Type, Authorization';
         $maxAge = 3600;

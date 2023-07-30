@@ -1,9 +1,11 @@
 <script>
 import ProductsComponent from '../components/ProductsComponent.vue';
+import FooterComponent from '../components/FooterComponent.vue';
 
 export default{
     components: {
       ProductsComponent,
+      FooterComponent
     },
     methods: {
       onAddClick() {
@@ -35,6 +37,7 @@ export default{
         
     </div>
   </main>
+  <FooterComponent></FooterComponent>
 </template>
 <style scoped>
     .products-section{

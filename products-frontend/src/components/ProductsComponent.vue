@@ -1,6 +1,7 @@
 <script>
     import axios from 'axios';
     import { API_URL } from '../utils/constants';
+    import { deleteProductsByIds, getProducts } from '../services/ProductService';
     export default{
         data(){
             return {
@@ -20,7 +21,7 @@
                 product.toDelete = !product.toDelete;
             },
             fetchProducts(){
-                axios.get(API_URL)
+                getProducts()
                 .then(
                     response =>{
                         this.products = response.data;
@@ -32,23 +33,17 @@
             },
             handleMassDelete(){
                 const productsIds = this.getProductToDelete().map(product => product.id);
-                this.deleteProductsByIds(productsIds);
-            },
-            deleteProductsByIds(productsIds){
-                axios.patch(API_URL,
-                    {
-                        'data':  {productsIds}
-                    }
-                )
+                deleteProductsByIds(productsIds)
                 .then(
-                    this.fetchProducts()
+                    ()=>{
+                        this.fetchProducts()
+                    }
                 )
                 .catch(error =>{
                     console.error('Error fetching products:', error);
                 });
-            }
+            },
         }
-       
     }
 </script>
 <template>
@@ -58,9 +53,12 @@
         <div class="product-properties">
             <div id="product-name"><p>{{ product.name }}</p></div>
             <div id="product-sku"><p>{{ product.sku }}</p></div>
-            <div id = "product-price"><p>{{ product.price }}</p></div>
+            <div id = "product-price"><p>{{ product.price }} $</p></div>
             <div class="specific-properties">
-                <div class="property-container" v-for="propertyName in Object.keys(product.properties)">
+                <div v-if="product.type =='furniture'">
+                    Dimesions:{{product.properties['height']}}x{{product.properties['width']}}x{{product.properties['length']}}
+                </div>
+                <div v-else class="property-container" v-for="propertyName in Object.keys(product.properties)">
                     {{ propertyName }} : {{ product.properties[propertyName] }}
                 </div>
             </div>
@@ -74,6 +72,7 @@
         border-radius: 12px;
         border: 3px solid #EDEDED;
         width: 250px;
+        min-height: 200px;
         padding: 12px;
         display: flex;
         align-items: center;

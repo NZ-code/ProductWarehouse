@@ -1,6 +1,8 @@
 <script>
 import { API_URL } from '../utils/constants';
-import axios from 'axios';
+
+import { postProductWithFormData, getProducts } from '../services/ProductService';
+import FooterComponent from '../components/FooterComponent.vue';
 class ProductForm{
     type="dvd";
     sku="";
@@ -14,16 +16,47 @@ class ProductForm{
 }
 
 export default {
+    components: {
+     
+      FooterComponent
+    },
   data() {
     return {
         productForm : new ProductForm(),
         selectedType:"dvd",
-        invalidFormWasSubmitted:false
+        invalidFormWasSubmitted:false,
+        skuList:[]
     }
   },
+  mounted() {
+    this.setSkuList()
+  },
   methods:{
+    areChangingOptionsEmpty(){
+        const changingOptionsDiv = this.$refs.changingOptions;
+        const inputs = changingOptionsDiv.querySelectorAll('input');  
+        for(const input of inputs){
+            console.log(input.value);
+            if(input.value===undefined || input.value.trim()=== '' ){
+                  return true;
+            }
+        }
+        return false;
+    },
+    setSkuList(){
+        getProducts()
+                .then(
+                    response =>{
+                        const products = response.data;
+                        this.skuList =products.map(product=>product.sku);
+                    }
+                )
+                .catch(error =>{
+                    console.error('Error getting products:', error);
+                });
+    },
     isFormValid(){
-        if((this.isSkuValid && this.isNameValid && this.isPriceValid) == false){
+        if((this.isSkuValid && this.isNameValid && this.isPriceValid && !this.areChangingOptionsEmpty()) == false){
             return false;
         }
         return true;
@@ -32,9 +65,7 @@ export default {
 
         let isFormValid = this.isFormValid();
         if(isFormValid){
-            this.postProduct()
-
-            
+            this.postProduct()            
         }
         else{
             this.invalidFormWasSubmitted = true;
@@ -48,7 +79,7 @@ export default {
         for(var key in this.productForm){
             formData.append(key, this.productForm[key]);
         }
-        axios.post(API_URL, formData)
+        postProductWithFormData(formData)
                 .then(
                     response =>{
                         this.$router.push('/');
@@ -63,9 +94,13 @@ export default {
     }
   },
   computed:{
+    
     isSkuValid(){
         const skuLettersCount = this.productForm.sku.length;
-        return  skuLettersCount >= 8  && skuLettersCount <= 12;
+        return  skuLettersCount >= 8  && skuLettersCount <= 12 && !this.isSkuExist;
+    },
+    isSkuExist(){
+        return  this.skuList.includes(this.productForm.sku);
     },
     isNameValid(){
         const nameLettersCount = this.productForm.name.length;
@@ -103,7 +138,8 @@ export default {
             </div>
         </nav>
     </header>
-    <div class="page-content">
+    <main>
+        <div class="page-content">
         <div class="form-section">
             <div class="error-messages" v-if="invalidFormWasSubmitted">
                 <p>Please, submit required data</p>
@@ -113,7 +149,10 @@ export default {
                     <label>SKU</label><br>
                     <input v-model="productForm.sku" type="text" id="sku" name="sku" required><br>
                     <div class="hint-messages" v-if="!isSkuValid">
-                        <p>SKU must be between eight and 12 characters long</p>
+                        <p>SKU must be unique between 8 and 12 characters long.</p>
+                    </div>
+                    <div class="error-messages" v-if="isSkuExist">
+                        <p>Product with this sku is already exist in database.</p>
                     </div>
                     <label>NAME</label><br>
                     <input v-model="productForm.name" type="text" id="name" name="name" required><br>
@@ -127,7 +166,7 @@ export default {
                     </div>
                 </div>
 
-                <div class="options-container changing-options">
+                <div class="options-container changing-options" ref="changingOptions">
                     <label>Type Switcher:</label>
                     <select name="type" id="productType" v-model="productForm.type">
                         <option value="dvd">DVD</option>
@@ -166,6 +205,10 @@ export default {
             </form>
         </div>
     </div>
+    </main>
+    <FooterComponent>
+        
+    </FooterComponent>
 
 </template>
 <style scoped>
@@ -213,6 +256,9 @@ export default {
     #product_form{
         display: flex;
         gap: 40px;
+    }
+    #sku{
+        
     }
 
 </style>

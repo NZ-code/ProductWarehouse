@@ -14,7 +14,7 @@ abstract class Product implements JsonSerializable{
     abstract public function getType();
     abstract public function getSpecificProperties();
     abstract public function setSpecificProperties($properties);
-    abstract public function jsonSerialize();
+    //abstract public function jsonSerialize();
     public static function getPropertiesNames()
     {
         return self::$propertiesNames;
@@ -34,13 +34,14 @@ abstract class Product implements JsonSerializable{
     public function setId($id){
         $this->id = $id;
     }
-    public function getBasicJsonDictionary(){
+    public function jsonSerialize(){
         return [
             'id' => $this->getId(),
             'name' => $this->getName(),
             'type' => $this->getType(),
             'sku' => $this->getSku(),
-            'price' => $this->getPrice()
+            'price' => $this->getPrice(),
+            'properties' => $this->getSpecificProperties()
         ];
     }
 

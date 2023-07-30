@@ -1,2 +1,3 @@
 IndexIgnore /sql_scripts
 IndexIgnore /mvc/app*
+IndexIgnore /products-frontend

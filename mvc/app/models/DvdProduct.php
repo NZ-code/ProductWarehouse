@@ -22,10 +22,6 @@ class DvdProduct extends Product{
     public function setSpecificProperties($properties){
         $this->size = $properties['size'];
     }
-    public function jsonSerialize(){
-        $baseDictionary = parent::getBasicJsonDictionary();
-        $specificDictionary = $this->getSpecificProperties();
-        return array_merge($baseDictionary, ["properties"=> $specificDictionary]);
-    }
+
 }
 
